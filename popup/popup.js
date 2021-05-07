@@ -20,7 +20,7 @@ button.addEventListener("click", () => {
           allBookmarks.push({
             "id": bookmark.id,
             "title": bookmark.title,
-            "url": bookmark.url
+            "url": bookmark.url,
             // 1: 'Bookmarks Bar', 2: 'Other Bookmarks', 3: 'Mobile Bookmarks';
             "parentId": bookmark.parentId
           });
