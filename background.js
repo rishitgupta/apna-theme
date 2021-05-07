@@ -1,8 +1,15 @@
-/*
-let color = "#00ff00";
+const tree = chrome.bookmarks.getTree();
 
-chrome.runtime.onInstalled.addListener(() => {
-    chrome.storage.sync.set({ color });
-    console.log('Default background color changed to green.', `color: ${color}`);
+tree.then(function(result) {
+    const bookmarks = result[0].children;
+    
+    // console.log(bookmarks);
+
+    let bar = bookmarks[0];
+    let other = bookmarks[1];
+
+    // console.log(bar);
+    // console.log(other);
+
+    // chrome.bookmarks.update("62", {"title": "Chal gaya brooooo"})
 });
-*/

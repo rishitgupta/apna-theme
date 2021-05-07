@@ -1,6 +1,10 @@
-/*
-let themeBuilder = document.getElementById('theme-builder');
+let button = document.getElementById('theme-builder');
 
+button.addEventListener("click", () => {
+  foo = chrome.bookmarks.get(1);
+  button.innerHTML = foo;
+});
+/*
 chrome.storage.sync.get("color", ({ color }) => {
     themeBuilder.style.backgroundColor = color;
 })

@@ -1,7 +1,8 @@
 :root {
     --bl: #092A34;
-    --or: #D73909;
+    --or: #EB3E0A;
     --ye: #FFC233;
+    --dark-or: #D73909;
 }
 
 body {
@@ -37,4 +38,8 @@ button {
     color: var(--bl);
     font-size: 15px;
     font-family: 'Pangolin';
+}
+
+button:active {
+    background-color: var(--dark-or);
 }
