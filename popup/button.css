@@ -1,0 +1,40 @@
+:root {
+    --bl: #092A34;
+    --or: #D73909;
+    --ye: #FFC233;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--bl);
+    height: 250px;
+    width: 350px;
+}
+
+
+svg {
+    transform: scale(1);
+    margin: 30px;
+}
+
+p {
+    margin: 0px 45px;
+    text-align: center;
+    color: var(--ye);
+    font-size: 24px;
+    font-family: 'Pangolin', 'Arial', sans-serif;
+}
+
+button {
+    padding: 5px 15px;
+    border: 2px solid var(--or);
+    border-radius: 25px;
+    margin: 25px;
+    background-color: var(--or);
+    color: var(--bl);
+    font-size: 15px;
+    font-family: 'Pangolin';
+}
