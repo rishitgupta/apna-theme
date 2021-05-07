@@ -1,10 +1,24 @@
-button {
-    height: 30px;
-    width: 30px;
-    margin: 10px;
-    border-radius: 2px;
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #092A34;
+    height: 250px;
+    width: 350px;
 }
 
-button.current {
-    box-shadow: 0 0 0 2px white, 0 0 0 4px black;
+
+svg {
+    transform: scale(1);
+    margin: 30px;
+}
+
+p {
+    color: white;
+    font-family: 'Pangolin', 'Arial', sans-serif;
+}
+
+button {
+    margin: 25px;
 }
