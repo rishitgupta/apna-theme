@@ -1,29 +1,39 @@
 let button = document.getElementById('theme-builder');
 
 button.addEventListener("click", () => {
-  foo = chrome.bookmarks.get(1);
-  button.innerHTML = foo;
-});
-/*
-chrome.storage.sync.get("color", ({ color }) => {
-    themeBuilder.style.backgroundColor = color;
-})
+  // button.innerHTML = "foo";
 
-// When the button is clicked, inject setPageBackgroundColor into current page
-themeBuilder.addEventListener("click", async () => {
-    let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  
-    chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      function: setPageBackgroundColor,
-    });
+  // Getting bookmarks tree
+  const tree = chrome.bookmarks.getTree();
+
+  // Extracting the result from Promise
+  tree.then(function(result) {
+      const bookmarkSets = result[0].children;
+
+      let allBookmarks = [];
+
+      // For each set of bookmarks
+      bookmarkSets.forEach(bookmarkSet => {
+        // For each bookmark in the bookmark set
+        bookmarkSet.children.forEach(bookmark => {
+          // Certain attributes are appended
+          allBookmarks.push({
+            "id": bookmark.id,
+            "title": bookmark.title,
+            "url": bookmark.url
+            // 1: 'Bookmarks Bar', 2: 'Other Bookmarks', 3: 'Mobile Bookmarks';
+            "parentId": bookmark.parentId
+          });
+        });
+      });
+
+      console.log(allBookmarks);
+
+      /*
+      // Converts all bookmarks to "Never Gonna Give You Up"
+      allBookmarks.forEach(b => {
+        chrome.bookmarks.update(b.id, {"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"})
+      });
+      */
   });
-
-// The body of this function will be executed as a content script inside the
-// current page
-function setPageBackgroundColor() {
-    chrome.storage.sync.get("color", ({ color }) => {
-      document.body.style.backgroundColor = color;
-    });
-  }
-*/
+});
