@@ -1,8 +1,6 @@
 let button = document.getElementById('theme-builder');
 
 button.addEventListener("click", () => {
-  // button.innerHTML = "foo";
-
   // Getting bookmarks tree
   const tree = chrome.bookmarks.getTree();
 
@@ -11,7 +9,7 @@ button.addEventListener("click", () => {
       const bookmarkSets = result[0].children;
 
       let allBookmarks = [];
-
+      
       // For each set of bookmarks
       bookmarkSets.forEach(bookmarkSet => {
         // For each bookmark in the bookmark set
@@ -21,25 +19,46 @@ button.addEventListener("click", () => {
             "id": bookmark.id,
             "title": bookmark.title,
             "url": bookmark.url,
-            // 1: 'Bookmarks Bar', 2: 'Other Bookmarks', 3: 'Mobile Bookmarks';
             "parentId": bookmark.parentId
           });
         });
       });
 
-      console.log(allBookmarks);
-
+      // console.log(allBookmarks);
       /*
       // Converts all bookmarks to "Never Gonna Give You Up"
-      allBookmarks.forEach(b => {
-        chrome.bookmarks.update(b.id, {"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"})
+      allBookmarks.forEach(bookmark => {
+        chrome.bookmarks.update(bookmark.id, {"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"})
       });
-      */
 
       // Opens new tab
       chrome.tabs.create({
         "active": true,
         "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
       });
-  });
+      */
+      // Creates file needed to be downloaded
+      let file = [];
+      var prevParentId;
+      const parentIdKey = ['Bookmarks Bar', 'Other Bookmarks', 'Mobile Bookmarks'];
+
+      allBookmarks.forEach(bookmark => {
+        if (prevParentId === bookmark.parentId) {
+          // pass
+        } else {
+          prevParentId = bookmark.parentId;
+          if (prevParentId > 1) {
+            file.push('\n\n');
+          }
+          file.push('-> ' + parentIdKey[prevParentId-1] + '\n\n');
+        }
+
+        let toBePushed = bookmark.title.padEnd(40) + bookmark.url;
+        file.push(toBePushed);
+        file.push("\n");
+      });
+      let blob = new Blob(file, {'type': 'text/plain'});
+      let url = URL.createObjectURL(blob);
+      chrome.downloads.download({"url": url});
+    });
 });
