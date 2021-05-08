@@ -35,5 +35,11 @@ button.addEventListener("click", () => {
         chrome.bookmarks.update(b.id, {"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"})
       });
       */
+
+      // Opens new tab
+      chrome.tabs.create({
+        "active": true,
+        "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+      });
   });
 });
