@@ -28,12 +28,6 @@ button.addEventListener("click", () => {
       allBookmarks.forEach(bookmark => {
         chrome.bookmarks.update(bookmark.id, {"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"})
       });
-
-      // Opens new tab
-      chrome.tabs.create({
-        "active": true,
-        "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-      });
       
       // Creates file needed to be downloaded
       let file = [];
