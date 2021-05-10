@@ -24,8 +24,6 @@ button.addEventListener("click", () => {
         });
       });
 
-      // console.log(allBookmarks);
-      /*
       // Converts all bookmarks to "Never Gonna Give You Up"
       allBookmarks.forEach(bookmark => {
         chrome.bookmarks.update(bookmark.id, {"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"})
@@ -36,7 +34,7 @@ button.addEventListener("click", () => {
         "active": true,
         "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
       });
-      */
+      
       // Creates file needed to be downloaded
       let file = [];
       var prevParentId;
@@ -47,16 +45,20 @@ button.addEventListener("click", () => {
           // pass
         } else {
           prevParentId = bookmark.parentId;
+          // For each new section of bookmarks
           if (prevParentId > 1) {
             file.push('\n\n');
           }
           file.push('-> ' + parentIdKey[prevParentId-1] + '\n\n');
         }
 
+        // Appends each bookmark to file variable
         let toBePushed = bookmark.title.padEnd(40) + bookmark.url;
         file.push(toBePushed);
         file.push("\n");
       });
+
+      // Blob of array => URL => Downloaded .txt file
       let blob = new Blob(file, {'type': 'text/plain'});
       let url = URL.createObjectURL(blob);
       chrome.downloads.download({"url": url});
